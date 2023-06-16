@@ -318,6 +318,7 @@ void bench_arith_fp_vec(bool md, double freq) {
 	// bench_mla_fp_vec(md, freq);
 	// bench_div_fp_vec(md, freq);
 	neon_bench_mul_fp_vec(md, freq);
+	neon_bench_mla_fp_vec(md, freq);
 	return;
 }
 
