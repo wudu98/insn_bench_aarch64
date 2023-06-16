@@ -515,13 +515,14 @@ public:
 		HReg const &_h,
 		SReg const &_s,
 		DReg const &_d,
-		QReg const &_q
-	) : w(_w), x(_x), v(_v), b(_b), h(_h), s(_s), d(_d), q(_q) {
+		QReg const &_q,
+		ZReg const &_z
+	) : w(_w), x(_x), v(_v), b(_b), h(_h), s(_s), d(_d), q(_q),z(_z) {
 	}
-	AReg(AReg const &_a) : w(_a.w), x(_a.x), v(_a.v), b(_a.b), h(_a.h), s(_a.s), d(_a.d), q(_a.q) {
+	AReg(AReg const &_a) : w(_a.w), x(_a.x), v(_a.v), b(_a.b), h(_a.h), s(_a.s), d(_a.d), q(_a.q), z(_a.z){
 	}
 	AReg &operator=(AReg const &a) {
-		w = a.w; x = a.x; v = a.v; b = a.b; h = a.h; s = a.s; d = a.d; q = a.q;
+		w = a.w; x = a.x; v = a.v; b = a.b; h = a.h; s = a.s; d = a.d; q = a.q ;z = a.z ;
 		return(*this);
 	}
 
@@ -533,6 +534,7 @@ public:
 	SReg s;
 	DReg d;
 	QReg q;
+	ZReg z;
 };
 
 /* op generation function template and helper */
@@ -566,7 +568,7 @@ private:
 	uint8x16_t const vconst = vdupq_n_u8(0);
 
 	/* helper SIMD-scalar registers */
-	#define a(_n)	AReg(w##_n, x##_n, v##_n, b##_n, h##_n, s##_n, d##_n, q##_n)
+	#define a(_n)	AReg(w##_n, x##_n, v##_n, b##_n, h##_n, s##_n, d##_n, q##_n, z##_n)
 	AReg regs[36] = {
 		a(0),  a(1),  a(2),  a(3),  a(4),  a(5),  a(6),  a(7),
 		a(8),  a(9),  a(10), a(11), a(12), a(13), a(14), a(15),
