@@ -166,8 +166,8 @@ void sve_bench_mul_fp_vec(bool md, double freq) {
 	// t.put("fmul.s (elem; [3])",         both(b, op( g->fmul(d->v.s, d->v.s, s->v.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
 }
 
-// static
-// void sve_bench_mla_fp_vec(bool md, double freq) {
+static
+void sve_bench_mla_fp_vec(bool md, double freq) {
 // 	table t(md, "SVE Floating point multiply-accumulate and fused-multiply add");
 // 	bench b(freq);
 
@@ -175,7 +175,7 @@ void sve_bench_mul_fp_vec(bool md, double freq) {
 // 	t.put("fmla.s (vec; acc. fwd.)",    lat(b,  op( g->fmla(g->v28.s, s->v.s, s->v.s) )));
 // 	t.put("fmla.s (elem; [0])",         both(b, op( g->fmla(d->v.s, d->v.s, s->v.s[0]) ), 0.0, lat_patterns, thr_half_patterns));
 // 	t.put("fmla.s (elem; [3])",         both(b, op( g->fmla(d->v.s, d->v.s, s->v.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
-// }
+}
 
 static
 void bench_mul_fp_vec(bool md, double freq) {
@@ -339,6 +339,8 @@ void bench_arith_fp_vec(bool md, double freq) {
 	// bench_div_fp_vec(md, freq);
 	neon_bench_mul_fp_vec(md, freq);
 	neon_bench_mla_fp_vec(md, freq);
+	sve_bench_mul_fp_vec(md, freq);
+	sve_bench_mla_fp_vec(md, freq);
 	return;
 }
 
