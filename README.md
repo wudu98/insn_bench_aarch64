@@ -4,7 +4,7 @@
 ## Run
 
 ```bash
-$ git clone --recursive https://github.com/ocxtal/insn_bench_aarch64.git && cd insn_bench_aarch64
+$ git clone --recursive https://github.com/wudu98/insn_bench_aarch64.git && cd insn_bench_aarch64
 $ make -j                                         # needs gcc or clang
 $ ./insn_bench_aarch64 > result.txt               # dump in tsv, -m for dump in markdown
 ```

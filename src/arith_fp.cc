@@ -134,6 +134,18 @@ void bench_max_min_fp_vec(bool md, double freq) {
 	return;
 }
 
+// #define op(_body)			( [ ](CodeGenerator *g, AReg const *d, AReg const *s, Label *gl) -> size_t { (void)g; (void)d; (void)s; (void)gl; _body; return(1); } )
+static
+void neon_bench_mul_fp_vec(bool md, double freq) {
+	table t(md, "NEON Floating point multiply");
+	bench b(freq);
+
+	t.put("fmul.s (scl)",               both(b, op( g->fmul(d->s, d->s, s->s) )));
+	t.put("fmul.s (vec)",               both(b, op( g->fmul(d->v.s, d->v.s, s->v.s) )));
+	t.put("fmul.s (elem; [0])",         both(b, op( g->fmul(d->v.s, d->v.s, s->v.s[0]) ), 0.0, lat_patterns, thr_half_patterns));
+	t.put("fmul.s (elem; [3])",         both(b, op( g->fmul(d->v.s, d->v.s, s->v.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
+}
+
 static
 void bench_mul_fp_vec(bool md, double freq) {
 	table t(md, "Floating point multiply");
@@ -289,11 +301,12 @@ void bench_div_fp_vec(bool md, double freq) {
 }
 
 void bench_arith_fp_vec(bool md, double freq) {
-	bench_basic_arith_fp_vec(md, freq);
-	bench_max_min_fp_vec(md, freq);
-	bench_mul_fp_vec(md, freq);
-	bench_mla_fp_vec(md, freq);
-	bench_div_fp_vec(md, freq);
+	// bench_basic_arith_fp_vec(md, freq);
+	// bench_max_min_fp_vec(md, freq);
+	// bench_mul_fp_vec(md, freq);
+	// bench_mla_fp_vec(md, freq);
+	// bench_div_fp_vec(md, freq);
+	neon_bench_mul_fp_vec(md, freq);
 	return;
 }
 
