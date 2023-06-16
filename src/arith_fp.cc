@@ -162,19 +162,19 @@ void sve_bench_mul_fp_vec(bool md, double freq) {
 	bench b(freq);
 
 	t.put("fmul.s (vec)",               both(b, op( g->fmul(d->z.s, d->z.s, s->z.s) )));
-	// t.put("fmul.s (elem; [0])",         both(b, op( g->fmul(d->v.s, d->v.s, s->v.s[0]) ), 0.0, lat_patterns, thr_half_patterns));
-	// t.put("fmul.s (elem; [3])",         both(b, op( g->fmul(d->v.s, d->v.s, s->v.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
+	t.put("fmul.s (elem; [0])",         both(b, op( g->fmul(d->z.s, d->z.s, s->z.s[0]) ), 0.0, lat_patterns, thr_half_patterns));
+	t.put("fmul.s (elem; [3])",         both(b, op( g->fmul(d->z.s, d->z.s, s->z.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
 }
 
 static
 void sve_bench_mla_fp_vec(bool md, double freq) {
-// 	table t(md, "SVE Floating point multiply-accumulate and fused-multiply add");
-// 	bench b(freq);
+	table t(md, "SVE Floating point multiply-accumulate and fused-multiply add");
+	bench b(freq);
 
-// 	t.put("fmla.s (vec)",               both(b, op( g->fmla(d->v.s, d->v.s, s->v.s) )));
-// 	t.put("fmla.s (vec; acc. fwd.)",    lat(b,  op( g->fmla(g->v28.s, s->v.s, s->v.s) )));
-// 	t.put("fmla.s (elem; [0])",         both(b, op( g->fmla(d->v.s, d->v.s, s->v.s[0]) ), 0.0, lat_patterns, thr_half_patterns));
-// 	t.put("fmla.s (elem; [3])",         both(b, op( g->fmla(d->v.s, d->v.s, s->v.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
+	t.put("fmla.s (vec)",               both(b, op( g->fmla(d->z.s, d->z.s, s->z.s) )));
+	t.put("fmla.s (vec; acc. fwd.)",    lat(b,  op( g->fmla(g->z28.s, s->z.s, s->z.s) )));
+	t.put("fmla.s (elem; [0])",         both(b, op( g->fmla(d->z.s, d->z.s, s->z.s[0]) ), 0.0, lat_patterns, thr_half_patterns));
+	t.put("fmla.s (elem; [3])",         both(b, op( g->fmla(d->z.s, d->z.s, s->z.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
 }
 
 static
