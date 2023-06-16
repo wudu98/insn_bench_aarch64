@@ -151,10 +151,11 @@ void neon_bench_mla_fp_vec(bool md, double freq) {
 	table t(md, "NEON Floating point multiply");
 	bench b(freq);
 
-	t.put("fmla.s (scl)",               both(b, op( g->fmul(d->s, d->s, s->s) )));
-	t.put("fmla.s (vec)",               both(b, op( g->fmul(d->v.s, d->v.s, s->v.s) )));
-	t.put("fmla.s (elem; [0])",         both(b, op( g->fmul(d->v.s, d->v.s, s->v.s[0]) ), 0.0, lat_patterns, thr_half_patterns));
-	t.put("fmla.s (elem; [3])",         both(b, op( g->fmul(d->v.s, d->v.s, s->v.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
+	t.put("fmla.s (scl)",               both(b, op( g->fmla(d->s, d->s, s->s) )));
+	t.put("fmla.s (vec)",               both(b, op( g->fmla(d->v.s, d->v.s, s->v.s) )));
+	t.put("fmla.s (vec; acc. fwd.)",    lat(b,  op( g->fmla(g->v28.s, s->v.s, s->v.s) )));
+	t.put("fmla.s (elem; [0])",         both(b, op( g->fmla(d->v.s, d->v.s, s->v.s[0]) ), 0.0, lat_patterns, thr_half_patterns));
+	t.put("fmla.s (elem; [3])",         both(b, op( g->fmla(d->v.s, d->v.s, s->v.s[3]) ), 0.0, lat_patterns, thr_half_patterns));
 }
 
 static
